@@ -1,0 +1,12 @@
+{
+  "name": "desafio-caca-e2e",
+  "version": "1.0.0",
+  "description": "Testes E2E para o Sistema de Controle de Frota",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.6"
+  }
+} 
