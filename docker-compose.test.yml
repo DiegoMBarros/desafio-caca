@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+    depends_on:
+      test-db:
+        condition: service_healthy
+      test-redis:
+        condition: service_healthy
+
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=transportadora_test
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  test-redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5 

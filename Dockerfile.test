@@ -1,0 +1,13 @@
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+# Instalar Maven
+RUN apk add --no-cache maven
+
+# Copiar arquivos do projeto
+COPY pom.xml .
+COPY src src
+
+# Executar testes
+CMD ["mvn", "test"] 
